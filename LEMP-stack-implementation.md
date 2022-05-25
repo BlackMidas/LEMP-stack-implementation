@@ -6,7 +6,7 @@
 I started off by updating the server’s package index using the below command
 
 `sudo apt update`
-![alt text](./images/1-sudo-apt-update.PNG)
+![alt text](./images/1-sudo-apt-update.png)
 
 Next, I use apt install to get Nginx installed:
 
