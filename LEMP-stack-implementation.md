@@ -6,16 +6,19 @@
 I started off by updating the server’s package index using the below command
 
 `sudo apt update`
+
 ![alt text](./images/1-sudo-apt-update.png)
 
 Next, I use apt install to get Nginx installed:
 
 `sudo apt install nginx`
+
 ![alt text](./images/2-sudo-apt-install-nginx.png)
 
 to verify that nginx was successfully installed and is running as a service in Ubuntu, the command below was used. If it shows green and running, it is OK.
 
 `sudo systemctl status nginx`
+
 ![alt text](./images/3-sudo-systemctl-status-nginx.png)
 
 Our server is running and to access it locally in our Ubuntu shell, run:
@@ -24,26 +27,32 @@ Our server is running and to access it locally in our Ubuntu shell, run:
 ![alt text](./images/4-curl-http-127.0.0.1-80.png)
 
 Now  to test how our Nginx server can respond to requests from the Internet. Open a web browser and try to access using this url http://Public-IP-Address:80. The output is shown below.
+
 ![alt text](./images/5-ipaddress-80.png)
 
 ### **Installing mysql**
 Using ‘apt’ command to acquire and install mysql software by running:
+
 `sudo apt install mysql-server`
+
 ![alt text](./images/6-sudo-apt-install-mysql-server.png)
 
  Next, log in to the MySQL console by typing:
 `sudo mysql`
+
 ![alt text](./images/7-sudo-mysql.png)
 
 To set a password for the root user, using mysql_native_password as default authentication method and defining the user’s password defind here as PassWord.1
 
 `ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'PassWord.1';`
+
 ![alt text](./images/8-set-root-user-password.png)
 
 Exit the mysql shell by entering `exit` which return to the ubuntu terminal
 To start running the recommended interavtive security script that comes pre-installed with MySQL, the below command is ran
 
 `sudo mysql_secure_installation`
+
 ![alt text](./images/9-sudo-mysql-secure-installation.png)
 
 Enter yes to setup validate password plugin. If you answer “yes”, you’ll be asked to select a level of password validation. click through 'yes' for the the rest questions.
@@ -55,11 +64,14 @@ When you’re finished, test if you’re able to log in to the MySQL console by 
 ### **Installing PHP**
 To install php with the 2 necessary external packages at once, the code below was used.
 `sudo apt install php-fpm php-mysql`
+
 ![alt text](./images/10-sudo-apt-install-php-mysql-php-fpm.png)
+
+
+### **Configuring Nginx to use PHP processor**
 
 Creating the root web directory for the domain as follows:
 
-### **Configuring Nginx to use PHP processor**
 `sudo mkdir /var/www/projectLEMP`
 
 Next, ownership of the directory was assigned with the $USER environment variable, which will reference the current system user:
@@ -71,6 +83,7 @@ Then, opening a new configuration file in Nginx’s sites-available directory us
 `sudo nano /etc/nginx/sites-available/projectLEMP`
 
 This creates a new blank file where the following bare-bones configuration was entered as in image below:
+
 ![alt text](./images/11-sudo-nano-bare-bones-configurations.png)
 
 Next, activating the configuration by linking to the config file from Nginx’s sites-enabled directory:
@@ -79,6 +92,7 @@ Next, activating the configuration by linking to the config file from Nginx’s 
 
 You can test your configuration for syntax errors by typing:
 `sudo nginx -t` and verifying with the output:
+
 ![alt text](./images/16-sudo-nginx-t.png)
 
 We also need to disable default Nginx host that is currently configured to listen on port 80, for this run:
@@ -141,6 +155,7 @@ You can test if the new user has the proper permissions by logging in to the MyS
  After logging in to the MySQL console, confirm that you have access to the example_database database:
 
 `SHOW DATABASES;`
+
 This will give you the following output:
 ![alt text](./images/27-user-confirm-access-db.png)
 
@@ -168,6 +183,7 @@ Now you can create a PHP script that will connect to MySQL and query for the con
 `sudo vi /var/www/projectLEMP/todo_list.php`
 
 Copy the codes in the image into your todo_list.php script:
+
 ![alt text](./images/30-nano-php-todo-list.png)
 
 Again, this page can now be accessed in a web browser by visiting the domain name or public IP address set up in the Nginx configuration file, followed by /todo_list.php: the output shown below.
