@@ -6,45 +6,45 @@
 I started off by updating the server’s package index using the below command
 
 `sudo apt update`
-![alt text](./LEMP-project-images/1-sudo-apt-update.PNG)
+![alt text](./images/1-sudo-apt-update.PNG)
 
 Next, I use apt install to get Nginx installed:
 
 `sudo apt install nginx`
-![alt text](./LEMP-project-images/2-sudo-apt-install-nginx.PNG)
+![alt text](./images/2-sudo-apt-install-nginx.PNG)
 
 to verify that nginx was successfully installed and is running as a service in Ubuntu, the command below was used. If it shows green and running, it is OK.
 
 `sudo systemctl status nginx`
-![alt text](./LEMP-project-images/3-sudo-systemctl-status-nginx.PNG)
+![alt text](./images/3-sudo-systemctl-status-nginx.PNG)
 
 Our server is running and to access it locally in our Ubuntu shell, run:
 
 `curl http://localhost:80`
-![alt text](./LEMP-project-images/4-curl-http-127.0.0.1-80.PNG)
+![alt text](./images/4-curl-http-127.0.0.1-80.PNG)
 
 Now  to test how our Nginx server can respond to requests from the Internet. Open a web browser and try to access using this url http://Public-IP-Address:80. The output is shown below.
-![alt text](./LEMP-project-images/5-ipaddress-80.PNG)
+![alt text](./images/5-ipaddress-80.PNG)
 
 ### **Installing mysql**
 Using ‘apt’ command to acquire and install mysql software by running:
 `sudo apt install mysql-server`
-![alt text](./LEMP-project-images/6-sudo-apt-install-mysql-server.PNG)
+![alt text](./images/6-sudo-apt-install-mysql-server.PNG)
 
  Next, log in to the MySQL console by typing:
 `sudo mysql`
-![alt text](./LEMP-project-images/7-sudo-mysql.PNG)
+![alt text](./images/7-sudo-mysql.PNG)
 
 To set a password for the root user, using mysql_native_password as default authentication method and defining the user’s password defind here as PassWord.1
 
 `ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'PassWord.1';`
-![alt text](./LEMP-project-images/8-set-root-user-password.PNG)
+![alt text](./images/8-set-root-user-password.PNG)
 
 Exit the mysql shell by entering `exit` which return to the ubuntu terminal
 To start running the recommended interavtive security script that comes pre-installed with MySQL, the below command is ran
 
 `sudo mysql_secure_installation`
-![alt text](./LEMP-project-images/9-sudo-mysql-secure-installation.PNG)
+![alt text](./images/9-sudo-mysql-secure-installation.PNG)
 
 Enter yes to setup validate password plugin. If you answer “yes”, you’ll be asked to select a level of password validation. click through 'yes' for the the rest questions.
 
@@ -55,7 +55,7 @@ When you’re finished, test if you’re able to log in to the MySQL console by 
 ### **Installing PHP**
 To install php with the 2 necessary external packages at once, the code below was used.
 `sudo apt install php-fpm php-mysql`
-![alt text](./LEMP-project-images/10-sudo-apt-install-php-mysql-php-fpm.PNG)
+![alt text](./images/10-sudo-apt-install-php-mysql-php-fpm.PNG)
 
 Creating the root web directory for the domain as follows:
 
@@ -71,7 +71,7 @@ Then, opening a new configuration file in Nginx’s sites-available directory us
 `sudo nano /etc/nginx/sites-available/projectLEMP`
 
 This creates a new blank file where the following bare-bones configuration was entered as in image below:
-![alt text](./LEMP-project-images/11-sudo-nano-bare-bones-configurations.PNG)
+![alt text](./images/11-sudo-nano-bare-bones-configurations.PNG)
 
 Next, activating the configuration by linking to the config file from Nginx’s sites-enabled directory:
 
@@ -79,7 +79,7 @@ Next, activating the configuration by linking to the config file from Nginx’s 
 
 You can test your configuration for syntax errors by typing:
 `sudo nginx -t` and verifying with the output:
-![alt text](./LEMP-project-images/16-sudo-nginx-t.PNG)
+![alt text](./images/16-sudo-nginx-t.PNG)
 
 We also need to disable default Nginx host that is currently configured to listen on port 80, for this run:
 
@@ -94,7 +94,7 @@ Finally, Nginx reloaded to apply the changes using:
 `sudo echo 'Hello LEMP from hostname' $(curl -s http://169.254.169.254/latest/meta-data/public-hostname) 'with public IP' $(curl -s http://169.254.169.254/latest/meta-data/public-ipv4) > /var/www/projectLEMP/index.html`
 
 Now go to your browser and try to open the website URL using http://Public-DNS-Name:80 or IP-address. Th output is shown in the image below.
-![alt text](./LEMP-project-images/19-ipaddress-80.PNG)
+![alt text](./images/19-ipaddress-80.PNG)
 
 
 ### **Testing PHP with Nginx**
@@ -106,7 +106,7 @@ Then the following php code entered to the editor
 `<?php phpinfo();`
 
 This page can now be accessed in a browser by visiting the domain name or public IP address set up in the Nginx configuration file, followed by /info.php which gives th output below
-![alt text](./LEMP-project-images/21-ipaddress-80-php.PNG/)
+![alt text](./images/21-ipaddress-80-php.PNG/)
 
 After checking the relevant information about the PHP server the file created was deletd using 'rm' command below as it contains sensitive information about the PHP environment and Ubuntu server.
 
@@ -142,7 +142,7 @@ You can test if the new user has the proper permissions by logging in to the MyS
 
 `SHOW DATABASES;`
 This will give you the following output:
-![alt text](./LEMP-project-images/27-user-confirm-access-db.PNG)
+![alt text](./images/27-user-confirm-access-db.PNG)
 
 Next, we’ll create a test table named todo_list. From the MySQL console, run the following statement:
 
@@ -152,13 +152,13 @@ Insert a few rows of content in the test table using command below. Repeating th
 
 `INSERT INTO example_database.todo_list (content) VALUES ("My first important item");`
 As done in the image below:
-![alt text](./LEMP-project-images/29-insert-into-table.PNG)
+![alt text](./images/29-insert-into-table.PNG)
 
 To confirm that the data was successfully saved to the table, run:
 
 `SELECT * FROM example_database.todo_list;`
 You will see the following output:
-![alt text](./LEMP-project-images/31.PNG)
+![alt text](./images/31.PNG)
 
 After confirming that you have valid data in your test table, you can exit the MySQL console:
 `exit`
@@ -168,8 +168,8 @@ Now you can create a PHP script that will connect to MySQL and query for the con
 `sudo vi /var/www/projectLEMP/todo_list.php`
 
 Copy the codes in the image into your todo_list.php script:
-![alt text](./LEMP-project-images/30-nano-php-todo-list.PNG)
+![alt text](./images/30-nano-php-todo-list.PNG)
 
 Again, this page can now be accessed in a web browser by visiting the domain name or public IP address set up in the Nginx configuration file, followed by /todo_list.php: the output shown below.
 
-![alt text](./LEMP-project-images/31-php-mysql.PNG)
+![alt text](./images/31-php-mysql.PNG)
